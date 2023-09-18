@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, Button, StyleSheet, TextInput, View, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
+import { SafeAreaView, Text, Button, StyleSheet, TextInput, View, KeyboardAvoidingView, ActivityIndicator, Keyboard, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../FirebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
@@ -37,16 +37,23 @@ export default LoginScreen = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.backcontainer}>
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
-        <Text style={styles.title}>b</Text>
+        <TouchableOpacity onPress={Keyboard.dismiss}>
+          <Text style={styles.title}>b</Text>
+        </TouchableOpacity>
+
         <View>
           <TextInput style={styles.input} value={email} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
           <TextInput secureTextEntry={true} style={styles.input} value={password} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}></TextInput>
-          {loading ? <ActivityIndicator style={{ marginTop: 20 }} size='large' color='#FFFBF8' />
+          {loading ? <ActivityIndicator style={{ margin: 20 }} size='large' color='#67C1F3' />
             : <>
-              <Button title='Log In' onPress={signIn} />
-              <Button title='Create Account' onPress={signUp} />
+              <TouchableOpacity style={styles.logButton} onPress={signIn} >
+                <Text style={styles.button}>Log in</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.createButton} onPress={signUp} >
+                <Text style={styles.button}>Create Account</Text>
+              </TouchableOpacity>
             </>
           }
         </View>
@@ -54,31 +61,56 @@ export default LoginScreen = () => {
     </SafeAreaView>
   )
 }
+
 //1C1414     FFFBF8       EF9FA7
+
 const styles = StyleSheet.create({
+  backcontainer: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FFFBF8',
+  },
   container: {
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: '#67C1F3',
   },
   input: {
+    fontSize: 20,
     marginTop: 20,
     padding: 10,
-    height: 40,
+    height: 50,
     width: 320,
-    backgroundColor: '#FFFBF8',
+    backgroundColor: '#Ee9Fa7',
     borderRadius: 10,
   },
   title: {
-    fontSize: 38,
+    fontSize: 58,
     fontWeight: 'bold',
-    color: '#FFFBF8',
+    color: '#67C1F3',
   },
   logButton: {
+    alignContent: 'center',
+    justifyContent: 'center',
     height: 40,
     width: 320,
+    borderRadius: 10,
     marginTop: 20,
-    backgroundColor: '#EF9FA7'
+    marginBottom: 20,
+    backgroundColor: '#67C1F3'
+  },
+  button: {
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '600'
+  },
+  createButton: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    height: 40,
+    width: 320,
+    borderRadius: 10,
+    marginBottom: 20,
+    backgroundColor: '#F2fBF8'
   },
 })

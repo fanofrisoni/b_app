@@ -21,17 +21,18 @@ function InsideLayout() {
 }
 
 export default StackNavigator = () => {
-
+/*
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
       setUser(user)
-      console.log(user)
+      //console.log(user)
     })
   }, [])
-
-  const [user, setUser] = useState(() => onAuthStateChanged(FIREBASE_AUTH, (user) => setUser(user)))
-
+*/
+  //const [user, setUser] = useState(() => onAuthStateChanged(FIREBASE_AUTH, (user) => setUser(user)))
+  const [user, setUser] = useState(null)
   return (
+
     <Stack.Navigator>
       {user ? (
         <Stack.Screen name='Layout' component={InsideLayout} options={{ headerShown: false }} />
