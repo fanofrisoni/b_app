@@ -6,7 +6,7 @@ import LoginScreen from './screens/LoginScreen'
 
 const Stack = createNativeStackNavigator()
 
-const StackNavigator = () => {
+export default StackNavigator = () => {
 
   const user = null
 
@@ -23,5 +23,3 @@ const StackNavigator = () => {
     </Stack.Navigator>
   )
 }
-
-export default StackNavigator
