@@ -1,26 +1,28 @@
-import { SafeAreaView, Text, Button, StyleSheet, TextInput, View, KeyboardAvoidingView, ActivityIndicator, Keyboard, TouchableOpacity } from 'react-native'
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Keyboard } from 'react-native'
 import React, { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { FIREBASE_AUTH } from '../FirebaseConfig'
-import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/native'
 
 
-const LoginScreen = () => {
+
+const SignupScreen = () => {
 
   const navigation = useNavigation()
+  const auth = FIREBASE_AUTH
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const auth = FIREBASE_AUTH
 
-  const signIn = async () => {
+  const signUp = async () => {
     setLoading(true);
     try {
-      const response = await signInWithEmailAndPassword(auth, email, password)
+      const response = await createUserWithEmailAndPassword(auth, email, password)
+      alert('Check your email!')
     } catch (error) {
       console.log(error)
-      alert("Sign in failed")
+      alert('Sign up failed, user already exists')
     } finally {
       setLoading(false);
     }
@@ -30,7 +32,7 @@ const LoginScreen = () => {
     <SafeAreaView style={styles.backcontainer}>
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.background} />
-        <TouchableOpacity onPress={() => Keyboard.dismiss()}>
+        <TouchableOpacity onPress={Keyboard.dismiss}>
           <Text style={styles.title}>b</Text>
         </TouchableOpacity>
 
@@ -41,11 +43,14 @@ const LoginScreen = () => {
         {loading ? <ActivityIndicator style={{ margin: 20 }} size='large' color='#67C1F3' />
           :
           <View>
-            <TouchableOpacity style={styles.logButton} onPress={signIn} >
-              <Text style={styles.button}>Log in</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.createButton} onPress={navigation.navigate('Signup')} >
+            <TouchableOpacity style={styles.logButton} onPress={() => {
+              signUp()
+              navigation.navigate('Login')
+            }} >
               <Text style={styles.button}>Create Account</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.createButton} onPress={navigation.navigate('Login')} >
+              <Text style={styles.button}>Go back</Text>
             </TouchableOpacity>
           </View>
         }
@@ -54,8 +59,6 @@ const LoginScreen = () => {
     </SafeAreaView>
   )
 }
-
-//1C1414     FFFBF8       EF9FA7
 
 const styles = StyleSheet.create({
   backcontainer: {
@@ -115,4 +118,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default LoginScreen
+export default SignupScreen
