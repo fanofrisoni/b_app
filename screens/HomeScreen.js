@@ -9,7 +9,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView>
       <Text>I am the Homescreen</Text>
-      <Button title='Go to Profile Screen' onPress={() => navigation.navigate('Profile')} />
+      <Button title='Go to Profile' onPress={() => navigation.navigate('Profile')} />
     </SafeAreaView>
   )
 }

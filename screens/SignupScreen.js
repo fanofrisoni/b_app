@@ -49,7 +49,7 @@ const SignupScreen = () => {
             }} >
               <Text style={styles.button}>Create Account</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.createButton} onPress={navigation.navigate('Login')} >
+            <TouchableOpacity style={styles.createButton} onPress={navigation.goBack} >
               <Text style={styles.button}>Go back</Text>
             </TouchableOpacity>
           </View>

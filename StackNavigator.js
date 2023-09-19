@@ -4,9 +4,9 @@ import HomeScreen from './screens/HomeScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import LoginScreen from './screens/LoginScreen'
 import SignupScreen from './screens/SignupScreen'
+import WelcomeScreen from './screens/WelcomeScreen'
 import { FIREBASE_AUTH } from './FirebaseConfig'
 import { onAuthStateChanged } from 'firebase/auth'
-
 
 
 const Stack = createNativeStackNavigator()
@@ -17,14 +17,15 @@ const OutsideStack = createNativeStackNavigator()
 
 function OutsideLayout() {
   return (
+
     <OutsideStack.Navigator>
-      <OutsideStack.Screen name='Login' component={LoginScreen} options={{ headerShown: false }} />
+      <OutsideStack.Screen name='Login' component={LoginScreen} options={{ headerShown: false, gestureEnabled: false }} />
       <OutsideStack.Screen name='Signup' component={SignupScreen} options={{ headerShown: false }} />
     </OutsideStack.Navigator>
-  )
+  );
 }
 
-function InsideLayout() {
+export function InsideLayout() {
   return (
     <InsideStack.Navigator>
       <InsideStack.Screen name='Home' component={HomeScreen} options={{ headerShown: true, headerShadowVisible: false }} />
@@ -43,11 +44,16 @@ export default StackNavigator = () => {
   }, [])
 
   const [user, setUser] = useState(() => onAuthStateChanged(FIREBASE_AUTH, (user) => setUser(user)))
-  //const [user, setUser] = useState(null)
-  return (
 
+  return (
     <Stack.Navigator>
-      {user ? (
+      {true ? (
+        <>
+          <Stack.Screen name='Welcome' component={WelcomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name='OutsideLayout' component={OutsideLayout} options={{ headerShown: false, gestureEnabled: false }} />
+        </>
+      ) :
+        user ? (
         <Stack.Screen name='Layout' component={InsideLayout} options={{ headerShown: false }} />
       ) : (
           <Stack.Screen name='OutsideLayout' component={OutsideLayout} options={{ headerShown: false }} />

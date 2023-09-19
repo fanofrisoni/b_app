@@ -27,14 +27,14 @@ const LoginScreen = () => {
   }
 
   return (
-    <SafeAreaView style={styles.backcontainer}>
+    <View style={styles.backcontainer}>
       <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <View style={styles.background} />
         <TouchableOpacity onPress={() => Keyboard.dismiss()}>
           <Text style={styles.title}>b</Text>
         </TouchableOpacity>
 
-        <View>
+        <View style={styles.inputs}>
           <TextInput autoCorrect={false} autoComplete='email' inputMode='email' style={styles.input} value={email} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
           <TextInput autoCorrect={false} secureTextEntry={true} style={styles.input} value={password} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}></TextInput>
         </View>
@@ -51,7 +51,7 @@ const LoginScreen = () => {
         }
 
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -70,23 +70,24 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 18,
-    marginTop: 20,
+    marginTop: 30,
     padding: 10,
     height: 42,
-    width: 320,
-    backgroundColor: '#fbe0e0',
+    width: '100%',
+    backgroundColor: '#FFFBF8',
     borderRadius: 10,
+
   },
   title: {
     fontSize: 58,
     fontWeight: 'bold',
-    color: '#67C1F3',
+    color: '#FFFBF8',
   },
   logButton: {
     alignContent: 'center',
     justifyContent: 'center',
     height: 42,
-    width: 320,
+    width: 340,
     borderRadius: 10,
     marginTop: 20,
     marginBottom: 20,
@@ -95,24 +96,28 @@ const styles = StyleSheet.create({
   button: {
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: '600'
+    fontWeight: '600',
+    color: '#2f2f2f',
   },
   createButton: {
     alignContent: 'center',
     justifyContent: 'center',
     height: 42,
-    width: 320,
+    width: 340,
     borderRadius: 10,
     marginBottom: 20,
     backgroundColor: '#d6e6ff'
   },
   background: {
     top: 0,
-    height: 480,
+    height: '100%',
     width: '100%',
     position: 'absolute',
-    backgroundColor: '#fbe0e0'
+    backgroundColor: '#2f2f2f'
   },
+  inputs: {
+    width: 340,
+  }
 })
 
 export default LoginScreen
